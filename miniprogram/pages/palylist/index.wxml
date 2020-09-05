@@ -1,2 +1,8 @@
 <!--pages/palylist/index.wxml-->
-<text>pages/palylist/index.wxml</text>
+<swiper indicator-dots="true" autoplay="true" interval="2000" duration="1000">
+	<block wx:for="{{swiperImgUrls}}" wx:key="url">
+		<swiper-item class="swiper-item">
+			<image src="{{item.url}}" mode="widthFix" class="img" />
+		</swiper-item>
+	</block>
+</swiper>
