@@ -2,7 +2,9 @@
   "pages": [
     "pages/palylist/index",
     "pages/blog/index",
-    "pages/profile/index"
+    "pages/profile/index",
+    "pages/demo",
+    "pages/demo/index"
   ],
   "window": {
     "backgroundColor": "#f6f6f6",
