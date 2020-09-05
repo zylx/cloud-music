@@ -83,19 +83,28 @@ Page({
    */
   _getPlaylist() {
     wx.showLoading({
-      title: '加载中',
+      title: '加载中'
     })
     wx.cloud.callFunction({
       name: 'music',
       data: {
+        $url: 'playlist',
         start: this.data.playlist.length,
         count: MAX_LIMIT
       }
     }).then((res) => {
+      let responseData = res.result.data
+      if (responseData.length === 0) {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '没有更多数据'
+        })
+      }
       this.setData({
-        playlist: this.data.playlist.concat(res.result.data)
+        playlist: this.data.playlist.concat(responseData)
       })
-      wx.stopPullDownRefresh()
+      wx.stopPullDownRefresh() // 下拉数据更新完时关闭下拉刷新的加载小点
       wx.hideLoading()
     })
   }
