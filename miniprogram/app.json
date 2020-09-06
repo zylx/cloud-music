@@ -3,6 +3,7 @@
     "pages/playlist/index",
     "pages/blog/index",
     "pages/profile/index",
+    "pages/musiclist/index",
     "pages/demo/index"
   ],
   "window": {
