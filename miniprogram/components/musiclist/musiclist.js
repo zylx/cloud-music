@@ -27,6 +27,9 @@ Component({
       this.setData({
         playingId: musicId
       })
+      wx.navigateTo({
+        url: `../../pages/player/index?musicId=${musicId}&index=${ds.index}`
+      })
     }
   }
 })

@@ -23,7 +23,6 @@ Page({
         playlistId: options.playlistId
       }
     }).then((res) => {
-      console.log(res)
       const pl = res.result.playlist
       this.setData({
         musiclist: pl.tracks,
@@ -32,8 +31,14 @@ Page({
           name: pl.name,
         }
       })
+      this._setMusiclist()
       wx.hideLoading()
     })
+  },
+
+  // 将歌曲列表加入缓存，减少请求次数
+  _setMusiclist() {
+    wx.setStorageSync('musiclist', this.data.musiclist)
   },
 
   /**

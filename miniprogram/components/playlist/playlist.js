@@ -30,6 +30,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    goToMusiclist() {
+      wx.navigateTo({
+        url: `../../pages/musiclist/index?playlistId=${this.properties.playlist.id}`
+      })
+    },
     _transNumber(num, point) {
       // let numStr = num.toString().split('.')[0]
       // let len = numStr.length

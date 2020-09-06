@@ -33,6 +33,13 @@ exports.main = async (event, context) => {
       })
   })
 
+  app.use('musicUrl', async (ctx, next) => {
+    ctx.body = await rp(`${BASE_URL}/music/url?id=${event.musicId}`)
+      .then((res) => {
+        return JSON.parse(res)
+      })
+  })
+
   return app.serve()
 
 }
