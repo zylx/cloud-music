@@ -3,13 +3,20 @@
 <view class="player-mask"></view>
 
 <view class="player-info">
+	<!-- 封面信息 -->
 	<view class="player-disc {{isPlaying ? 'play' : ''}}">
 		<image class="player-img rotation {{isPlaying ? '' : 'rotation-paused'}}" src="{{picUrl}}"></image>
 	</view>
-</view>
 
-<view class="control">
-	<text class="iconfont icon-48shangyishou" bind:tap="onPrev"></text>
-	<text class="iconfont {{isPlaying ? 'icon-zanting' : 'icon-bofang'}}" bind:tap="togglePlaying"></text>
-	<text class="iconfont icon-048caozuo_xiayishou" bind:tap="onNext"></text>
+	<!-- 进度条 -->
+	<view class="progress-bar">
+		<x-progress-bar bind:musicEnd="onNext"/>
+	</view>
+
+	<!-- 控制面板 -->
+	<view class="control">
+		<text class="iconfont icon-48shangyishou" bind:tap="onPrev"></text>
+		<text class="iconfont {{isPlaying ? 'icon-zanting' : 'icon-bofang'}}" bind:tap="togglePlaying"></text>
+		<text class="iconfont icon-048caozuo_xiayishou" bind:tap="onNext"></text>
+	</view>
 </view>
