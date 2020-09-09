@@ -82,7 +82,7 @@ Component({
         line.forEach((item) => {
           let time = item.match(/\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g)
           if (time !== null) {
-            let lrc = item.split(time[0])[1]
+            let lrc = item.split(time)[1]
             let timeReg = time[0].match(/(\d{2,}):(\d{2})(?:\.(\d{2,3}))?/)
             // 把时间转化成秒
             let time2Seconds = parseInt(timeReg[1]) * 60 + parseInt(timeReg[2]) + parseInt(timeReg[3]) / 1000
