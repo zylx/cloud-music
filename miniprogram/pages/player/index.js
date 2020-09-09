@@ -3,6 +3,7 @@ let musiclist = []
 let nowPlayingIndex = 0
 // 获取全局唯一的背景音频管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
+const app = getApp()
 Page({
 
   /**
@@ -34,6 +35,10 @@ Page({
       picUrl: music.al.picUrl,
       isPlaying: false
     })
+
+    // 设置全局的正在播放中的歌曲ID
+    app.setPlayingMusicId(musicId)
+
     // 请求歌曲信息
     wx.showLoading({
       title: '歌曲加载中'
