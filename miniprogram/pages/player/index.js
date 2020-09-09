@@ -122,6 +122,19 @@ Page({
     this.selectComponent('#lyric').update(event.detail.currentTime)
   },
 
+  // 小程序控制面板联动播放页面播放或暂停
+  onPlay() {
+    this.setData({
+      isPlaying: true
+    })
+  },
+
+  onPause() {
+    this.setData({
+      isPlaying: false
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

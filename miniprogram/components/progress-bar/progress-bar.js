@@ -70,6 +70,7 @@ Component({
       backgroundAudioManager.onPlay(() => {
         console.log('onPlay')
         isMoving = false
+        this.triggerEvent('musicPlay')
       })
 
       backgroundAudioManager.onStop(() => {
@@ -78,6 +79,7 @@ Component({
 
       backgroundAudioManager.onPause(() => {
         console.log('Pause')
+        this.triggerEvent('musicPause')
       })
 
       backgroundAudioManager.onWaiting(() => {
