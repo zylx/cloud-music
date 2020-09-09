@@ -40,6 +40,14 @@ exports.main = async (event, context) => {
       })
   })
 
+  app.use('lyric', async (ctx, next) => {
+    // ctx.body = await rp(`${BASE_URL}/lyric?id=${event.musicId}`)
+    ctx.body = await rp(`http://music.163.com/api/song/lyric?lv=1&kv=1&tv=-1&id=${event.musicId}`)
+      .then((res) => {
+        return JSON.parse(res)
+      })
+  })
+
   return app.serve()
 
 }

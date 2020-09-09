@@ -108,6 +108,10 @@ Component({
               'showTime.currentTime': `${currentTimeFmt.min}:${currentTimeFmt.sec}`
             })
             currentSec = sec
+            // 歌词联动
+            this.triggerEvent('timeUpdate', {
+              currentTime
+            })
           }
         }
       })
