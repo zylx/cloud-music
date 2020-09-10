@@ -1,0 +1,16 @@
+.tips {
+  display: inline-block;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #666;
+  background: #f3f3f3;
+}
+
+.login {
+  font-size: 32rpx;
+  height: 80rpx;
+  background-color: #d43c33;
+  color: #fff;
+  margin: 110rpx;
+}

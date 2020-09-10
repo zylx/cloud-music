@@ -2,6 +2,6 @@
 	<view class="panel">
 		<i class="iconfont icon-shanchu" bind:tap="onClose"></i>
 		<!-- slot插槽 具名插槽 -->
-		<slot name="btn"></slot>
+		<slot name="modal-content"></slot>
 	</view>
 </view>

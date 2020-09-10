@@ -13,7 +13,7 @@
 }
 
 .header .icon-fabu {
-  font-size: 48rpx;
+  font-size: 60rpx;
   color: #666;
 }
 

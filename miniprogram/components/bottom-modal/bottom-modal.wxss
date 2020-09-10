@@ -22,8 +22,9 @@
 /* 可以直接对外部样式修改 */
 .modal .icon-shanchu {
   position: absolute;
+  top: 0;
   right: 10rpx;
-  top: 10rpx;
   padding: 20rpx; /* 为了增加点击区域大小 */
-  font-size: 40rpx;
+  font-size: 36rpx;
+  color: #333;
 }
