@@ -8,4 +8,8 @@
 			<x-search iconfont="iconfont" icon-sousuo="icon-sousuo" bind:search="onSearch" />
 		</view>
 	</view>
+	<!-- 底部弹出层 -->
+	<x-bottom-modal showModal="{{showModal}}">
+		<view slot="btn">按钮</view>
+	</x-bottom-modal>
 </view>
