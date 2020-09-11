@@ -1,6 +1,6 @@
 <x-bottom-modal showModal="{{showModal}}">
 	<view slot="modal-content">
 		<text class="tips">未授权用户，请点击以下按钮</text>
-		<button class="login" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">获取微信授权信息</button>
+		<button class="login" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">获取微信授权信息</button>
 	</view>
 </x-bottom-modal>

@@ -10,13 +10,44 @@ Page({
 
   // 发布
   onPublish() {
-    this.setData({
-      showModal: true
+    // 判断用户是否授权
+    wx.getSetting({
+      withSubscriptions: true,
+      success: (res) => {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({ // 获取用户信息
+            success: (res) => {
+              this.onLoginSuccess({
+                detail: res.userInfo
+              })
+            }
+          })
+        } else {
+          this.setData({
+            showModal: true
+          })
+        }
+      }
     })
   },
 
   // 搜索
   onSearch() {},
+
+  onLoginSuccess(event) {
+    const detail = event.detail
+    wx.navigateTo({
+      url: `../blog-edit/blog-edit?nickName=${detail.nickName}&avatarUrl=${detail.avatarUrl}`
+    })
+  },
+
+  onLoginFail() {
+    wx.showModal({
+      title: '提示',
+      content: '只有授权用户才能发布哦！',
+      showCancel: false
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
