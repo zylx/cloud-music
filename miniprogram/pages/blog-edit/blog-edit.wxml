@@ -3,14 +3,14 @@
 	<textarea class="content" placeholder="分享新鲜事..." bindinput="onInput" maxlength="140" auto-focus bindfocus="onFocus" bindblur="onBlur"></textarea>
 	<view class="image-list">
 		<!-- 图片显示区域 -->
-		<block>
-			<view class="image-wrap">
-				<image class="image" src="" mode="aspectFill" data-imgsrc=""></image>
-				<i class="iconfont icon-shanchu"></i>
+		<block wx:for="{{images}}" wx:key="*this">
+			<view class="image-wrap" style="margin-right:{{marginSpace}}rpx;margin-bottom:{{marginSpace}}rpx;">
+				<image class="image" src="{{item}}" mode="aspectFill" data-imgsrc="{{item}}"></image>
+				<i class="iconfont icon-shanchu" bind:tap="onPhotoDel" data-index="{{index}}"></i>
 			</view>
 		</block>
 		<!-- 选择图片 -->
-		<view class="image-wrap photo-select">
+		<view class="image-wrap photo-select" bind:tap="onChooseImages" hidden="{{!photoSelectShow}}">
 			<i class="iconfont icon-jiahao"></i>
 		</view>
 	</view>

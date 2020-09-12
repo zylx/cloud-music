@@ -1,5 +1,7 @@
 // miniprogram/pages/blog-edit/blog-edit.js
+const app = getApp()
 const MAX_WORDS_COUNT = 140 // 最大字数输入限制
+const MAX_IMAGES_COUNT = 9 // 可选择图片最大张数
 Page({
 
   /**
@@ -8,6 +10,9 @@ Page({
   data: {
     wordCount: 0,
     footerBottom: 0, // 初始底栏高度，输入框获取焦点后会弹出键盘，这个高度也随着键盘高度上升
+    photoSelectShow: true, // 图片选择元素是否显示
+    images: [], // 保存已选择图片数组
+    marginSpace: 10 // 图片之间的间隙
   },
 
   onInput(event) {
@@ -35,6 +40,50 @@ Page({
     })
   },
 
+  // 选择图片
+  onChooseImages(event) {
+    let max = MAX_IMAGES_COUNT - this.data.images.length
+    wx.chooseImage({
+      count: max,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        this.setData({
+          images: this.data.images.concat(res.tempFilePaths),
+          photoSelectShow: (max - res.tempFilePaths.length) > 0
+        })
+      }
+    })
+  },
+
+  // 删除已选择图片
+  onPhotoDel(event) {
+    let imageIndex = event.target.dataset.index
+    let images = this.data.images
+    images.splice(imageIndex, 1)
+    this.setData({
+      images
+    })
+    // 判断图片选择元素的显示
+    if (images.length < MAX_IMAGES_COUNT) {
+      this.setData({
+        photoSelectShow: true
+      })
+    }
+  },
+
+  // 设置图片显示间隙
+  setImageMargin() {
+    const screenWidth = app.getScreenWidth()
+    const rpx = app.getRpx() // 1rpx的像素（px）大小
+    // 30rpx 为图片区域总的左右边距，220rpx 为图片宽高，一排3张
+    // marginSpace 为计算所得到图片间隙宽度，一排3张，中间两个间隙，所以还要除以2
+    const marginSpace = (screenWidth - rpx * 30 * 2 - rpx * 220 * 3) / rpx / 2
+    this.setData({
+      marginSpace
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -46,7 +95,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    // 设置图片显示间隙
+    this.setImageMargin()
   },
 
   /**

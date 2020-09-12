@@ -19,6 +19,19 @@ App({
       playingMusicId: -1
     }
   },
+  getScreenWidth() {
+    let screenWidth = 0
+    wx.getSystemInfo({
+      success(res) {
+        screenWidth = res.screenWidth
+      }
+    })
+    return screenWidth
+  },
+  getRpx() {
+    let screenWidth = this.getScreenWidth()
+    return screenWidth / 750 // 1rpx的像素（px）大小
+  },
   setPlayingMusicId(musicId) {
     this.globalData.playingMusicId = musicId
   },
