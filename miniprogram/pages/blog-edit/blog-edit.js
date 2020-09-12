@@ -56,6 +56,14 @@ Page({
     })
   },
 
+  // 预览图片
+  onPreviewImage(event) {
+    wx.previewImage({
+      urls: this.data.images,
+      current: event.target.dataset.imgsrc
+    })
+  },
+
   // 删除已选择图片
   onPhotoDel(event) {
     let imageIndex = event.target.dataset.index
@@ -82,6 +90,30 @@ Page({
     this.setData({
       marginSpace
     })
+  },
+
+  // 发布
+  send() {
+    // 1、图片 -> 云存储 -> fieldID
+    // 2、数据库：openid、内容、fieldID、昵称、头像、发布时间
+
+    // 图片上传
+    const images = this.data.images
+    for (let i = 0, len = images.length; i < len; i++) {
+      let item = images[i]
+      // 文件扩展名
+      const suffix = /\.\w+$/.exec(item)[0]
+      wx.cloud.uploadFile({
+        cloudPath: 'blog/' + Date.now() + i + suffix,
+        filePath: item,
+        success: (res) => {
+          console.log(res)
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
+    }
   },
 
   /**
