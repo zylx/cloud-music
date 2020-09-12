@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showModal: false
+    showModal: false,
+    blogList: []
   },
 
   // 发布
@@ -53,7 +54,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this._getBlogList()
+  },
 
+  // 获取博客列表
+  _getBlogList() {
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        $url: 'list',
+        start: 0,
+        count: 10
+      }
+    }).then((res) => {
+      console.log(res)
+      this.setData({
+        blogList: this.data.blogList.concat(res.result)
+      })
+    })
   },
 
   /**
