@@ -1,6 +1,6 @@
 <view class="container">
 	<!-- 文字编辑区域 -->
-	<textarea class="content" placeholder="分享新鲜事..." bind:input="onInput" maxlength="140" auto-focus></textarea>
+	<textarea class="content" placeholder="分享新鲜事..." bindinput="onInput" maxlength="140" auto-focus bindfocus="onFocus" bindblur="onBlur"></textarea>
 	<view class="image-list">
 		<!-- 图片显示区域 -->
 		<block>
@@ -16,7 +16,7 @@
 	</view>
 </view>
 
-<view class="footer">
+<view class="footer" style="bottom:{{footerBottom}}px">
 	<text class="word-count">{{wordCount}}</text>
 	<button class="send-btn">发布</button>
 </view>

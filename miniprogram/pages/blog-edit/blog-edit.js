@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    wordCount: 0
+    wordCount: 0,
+    footerBottom: 0, // 初始底栏高度，输入框获取焦点后会弹出键盘，这个高度也随着键盘高度上升
   },
 
   onInput(event) {
@@ -16,6 +17,21 @@ Page({
     }
     this.setData({
       wordCount
+    })
+  },
+
+  // 获取焦点
+  onFocus(event) {
+    const detail = event.detail
+    this.setData({
+      footerBottom: detail.height || 0
+    })
+  },
+
+  // 失去焦点
+  onBlur() {
+    this.setData({
+      footerBottom: 0
     })
   },
 
