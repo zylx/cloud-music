@@ -1,4 +1,4 @@
-<view class="playlist-container" bind:tap="goToMusiclist">
+<view class="playlist-container" bind:tap="goToMusiclist" style="margin-right:{{playIndex % 3 !== 2 ? marginSpace : 0}}rpx;">
 	<image src="{{playlist.picUrl}}" class="play-img" />
 	<text class="play-count">{{_count}}</text>
 	<view class="play-name">{{playlist.name}}</view>

@@ -9,6 +9,6 @@
 
 <view class="playlist-container">
 	<block wx:for="{{playlist}}" wx:key="_id">
-		<x-playlist playlist="{{item}}" />
+		<x-playlist playlist="{{item}}" playIndex="{{index}}" marginSpace="{{marginSpace}}" />
 	</block>
 </view>
