@@ -1,1 +1,92 @@
-/* miniprogram/pages/blog-edit/blog-edit.wxss */
+.container {
+  margin: 10rpx;
+  padding: 20rpx;
+  border: 1px solid #efefef;
+  border-radius: 6rpx;
+}
+
+.content {
+  width: 100%;
+  height: 360rpx;
+  box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: #f1f1f1;
+}
+
+.word-count {
+  flex: 1;
+  margin-right: 30rpx;
+  text-align: right;
+  font-size: 32rpx;
+  color: #474747;
+}
+
+.send-btn {
+  width: auto !important;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background: #d43c33;
+}
+
+/* 图片显示 */
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  margin-top: 40rpx;
+}
+
+.image-wrap {
+  position: relative;
+  width: 220rpx;
+  height: 220rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  text-align: center;
+  overflow: hidden;
+}
+
+.image-wrap image {
+  width: 100%;
+  height: 100%;
+  background: #efefef;
+}
+
+.icon-shanchu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40rpx;
+  height: 40rpx;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  line-height: 42rpx;
+  font-size: 24rpx;
+  font-weight: bolder;
+}
+
+.photo-select {
+  position: relative;
+  border: 2rpx dashed #cbd1d7;
+  box-sizing: border-box;
+}
+
+.icon-jiahao {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #cbd1d7;
+  font-size: 60rpx;
+}

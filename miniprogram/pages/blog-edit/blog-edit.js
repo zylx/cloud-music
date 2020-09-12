@@ -1,11 +1,22 @@
 // miniprogram/pages/blog-edit/blog-edit.js
+const MAX_WORDS_COUNT = 140 // 最大字数输入限制
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    wordCount: 0
+  },
 
+  onInput(event) {
+    let wordCount = event.detail.value.length
+    if (wordCount >= MAX_WORDS_COUNT) {
+      wordCount = `允许最大输入${MAX_WORDS_COUNT}字`
+    }
+    this.setData({
+      wordCount
+    })
   },
 
   /**
