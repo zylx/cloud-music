@@ -23,7 +23,7 @@
 <!-- 评论弹出层 -->
 <x-bottom-modal showModal="{{showModal}}">
   <view slot="modal-content">
-    <textarea name="content" class="comment-content" placeholder="说点什么吧" value="{{content}}" fixed="true"></textarea>
-    <button class="send" form-type="submit">发 送</button>
+    <textarea name="content" class="comment-content" placeholder="说点什么吧" bindinput="onInput" fixed="true"></textarea>
+    <button class="send" bind:tap="onSend">发 送</button>
   </view>
 </x-bottom-modal>

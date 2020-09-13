@@ -1,4 +1,5 @@
 // components/blog-ctrl/blog-ctrl.js
+const db = wx.cloud.database()
 let ctrlType = 0 // 点赞：0，评论：1
 let userInfo = {}
 Component({
@@ -6,7 +7,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    blogId: String
   },
 
   /**
@@ -65,6 +66,49 @@ Component({
             })
           }
         }
+      })
+    },
+
+    onInput(event) {
+      this.setData({
+        content: event.detail.value
+      })
+    },
+
+    // 评论
+    onSend() {
+      let content = this.data.content
+      if (content.trim().length === 0) {
+        wx.showModal({
+          title: '提示',
+          content: '你还未输入评论内容！',
+          showCancel: false
+        })
+        return
+      }
+      wx.showLoading({
+        title: '评论中',
+        mask: true
+      })
+      db.collection('blog-comment').add({
+        data: {
+          blogId: this.properties.blogId,
+          content,
+          createtime: db.serverDate(),
+          nickName: userInfo.nickName,
+          avatarUrl: userInfo.avatarUrl
+        }
+      }).then((res) => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '评论成功',
+          success: () => {
+            this.setData({
+              showModal: false,
+              content: ''
+            })
+          }
+        })
       })
     },
 
