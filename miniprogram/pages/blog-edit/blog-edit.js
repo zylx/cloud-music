@@ -113,7 +113,8 @@ Page({
     }
 
     wx.showLoading({
-      title: '发布中'
+      title: '发布中',
+      mask: true
     })
 
     // 图片上传
@@ -157,6 +158,11 @@ Page({
         })
         // 返回blog首页，并刷新
         wx.navigateBack()
+        const pages = getCurrentPages()
+        // console.log(pages)
+        // 取到上一个页面
+        const prevPage = pages[0]
+        prevPage.onPullDownRefresh()
       })
     }).catch((err) => {
       wx.hideLoading()
