@@ -16,7 +16,18 @@ exports.main = async (event, context) => {
 
   // 获取博客列表
   app.use('list', async (ctx, next) => {
+    const keyword = event.keyword
+    let w = {}
+    if (keyword.trim() != '') {
+      w = {
+        content: new db.RegExp({
+          regexp: keyword,
+          options: 'i'
+        })
+      }
+    }
     ctx.body = await dbCollection
+      .where(w)
       .skip(event.start)
       .limit(event.count)
       .orderBy('createtime', 'desc')

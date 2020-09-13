@@ -6,7 +6,8 @@
     "pages/musiclist/index",
     "pages/player/index",
     "pages/demo/index",
-    "pages/blog-edit/blog-edit"
+    "pages/blog-edit/blog-edit",
+    "pages/blog-detail/blog-detail"
   ],
   "requiredBackgroundModes": [
     "audio"
