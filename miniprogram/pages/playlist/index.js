@@ -1,4 +1,5 @@
 // pages/palylist/index.js
+const app = getApp()
 const MAX_LIMIT = 15
 Page({
 
@@ -16,7 +17,8 @@ Page({
         url: 'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg',
       }
     ],
-    playlist: []
+    playlist: [],
+    marginSpace: 10, // 歌单图片之间的间隙
   },
 
   /**
@@ -30,7 +32,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.setImageMargin()
   },
 
   /**
@@ -106,6 +108,16 @@ Page({
       })
       wx.stopPullDownRefresh() // 下拉数据更新完时关闭下拉刷新的加载小点
       wx.hideLoading()
+    })
+  },
+  setImageMargin() { // 设置歌单图片之间间隙
+    const screenWidth = app.getScreenWidth()
+    const rpx = app.getRpx() // 1rpx的像素（px）大小
+    // 20rpx 为歌单图片区域总的左右边距，220rpx 为图片宽高，一排3张
+    // marginSpace 为计算所得到图片间隙宽度，一排3张，中间两个间隙，所以还要除以2
+    const marginSpace = (screenWidth - rpx * 20 * 2 - rpx * 220 * 3) / rpx / 2
+    this.setData({
+      marginSpace
     })
   }
 })

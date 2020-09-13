@@ -6,7 +6,12 @@ Component({
   properties: {
     playlist: {
       type: Object
-    }
+    },
+    marginSpace: { // 歌单图片之间的间隙大小
+      type: Number,
+      value: 10
+    },
+    playIndex: Number // 歌单序号，当 playIndex % 3 === 2 时，说明是一行中最右边图片，margin-right 不加 marginSpace，而是设置为0
   },
 
   /**

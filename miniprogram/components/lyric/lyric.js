@@ -1,4 +1,5 @@
 // components/lyric/lyric.js
+const app = getApp()
 let lyricHeight = 0 // 当前歌词行高px
 Component({
   /**
@@ -39,12 +40,8 @@ Component({
 
   lifetimes: {
     ready() {
-      wx.getSystemInfo({
-        success(res) {
-          let rpx = res.screenWidth / 750 // 1rpx的像素（px）大小
-          lyricHeight = rpx * 64 // 歌词的高度为 64rpx
-        },
-      })
+      const rpx = app.getRpx() // 1rpx的像素（px）大小
+      lyricHeight = rpx * 64 // 歌词的高度为 64rpx
     }
   },
 
