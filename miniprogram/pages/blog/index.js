@@ -87,6 +87,13 @@ Page({
     })
   },
 
+  // 跳转至详情页面
+  goDetail(event) {
+    wx.navigateTo({
+      url: `../blog-detail/blog-detail?blogId=${event.target.dataset.blogid}`
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
