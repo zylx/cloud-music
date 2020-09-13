@@ -5,7 +5,7 @@ const MAX_IMAGES_COUNT = 9 // 可选择图片最大张数
 
 const db = wx.cloud.database()
 let userInfo = {}
-let content
+let content = ''
 Page({
 
   /**
@@ -103,8 +103,18 @@ Page({
     // 1、图片 -> 云存储 -> fieldID
     // 2、数据库：openid、内容、fieldID、昵称、头像、发布时间
 
+    if (content.trim() === '') {
+      wx.showModal({
+        title: '提示',
+        content: '分享内容为空，请说点什么吧~',
+        showCancel: false
+      })
+      return
+    }
+
     wx.showLoading({
-      title: '发布中'
+      title: '发布中',
+      mask: true
     })
 
     // 图片上传
@@ -120,12 +130,12 @@ Page({
           cloudPath: 'blog/' + Date.now() + i + suffix,
           filePath: item,
           success: (res) => {
-            console.log(res)
+            // console.log(res)
             fieldIds = fieldIds.concat(res.fileID)
             resolve()
           },
           fail: (err) => {
-            console.log(err)
+            // console.log(err)
             reject()
           }
         })
@@ -139,7 +149,7 @@ Page({
           ...userInfo,
           content,
           images: fieldIds,
-          createtime: db.serverDate // 服务端时间
+          createtime: db.serverDate() // 服务端时间
         }
       }).then((res) => {
         wx.hideLoading()
@@ -148,6 +158,11 @@ Page({
         })
         // 返回blog首页，并刷新
         wx.navigateBack()
+        const pages = getCurrentPages()
+        // console.log(pages)
+        // 取到上一个页面
+        const prevPage = pages[0]
+        prevPage.onPullDownRefresh()
       })
     }).catch((err) => {
       wx.hideLoading()
