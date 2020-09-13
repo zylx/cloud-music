@@ -1,0 +1,74 @@
+.ctrl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50rpx 20rpx;
+  background-color: #ffff;
+}
+
+.ctrl-item {
+  color: rgba(40, 47, 60, 0.8);
+  font-size: 28rpx;
+}
+
+.ctrl-left {
+  display: flex;
+  justify-content: space-around;
+}
+
+.zan-item,
+.comment-item {
+  display: flex;
+}
+
+.zan-item {
+  margin-right: 50rpx;
+}
+
+.zan-item i,
+.comment-item i {
+  margin-right: 10rpx;
+  font-size: 38rpx;
+}
+
+/* 分享 */
+.share-btn {
+  width: auto !important;
+  padding: 0;
+  background-color: #fff;
+  color: rgba(40, 47, 60, 0.8);
+  border: none;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+
+.share-btn i {
+  margin-right: 10rpx;
+  font-size: 36rpx;
+}
+
+.share-btn::after {
+  display: none;
+}
+
+.share-hover::after {
+  border: 0;
+}
+
+/* 底部评论弹出层 */
+.comment-content {
+  width: 560rpx;
+  text-align: left;
+  padding: 20rpx;
+  font-size: 32rpx;
+}
+
+.send {
+  position: absolute;
+  width: auto !important;
+  background: #d43c33;
+  color: #fff;
+  font-size: 24rpx;
+  right: 20rpx;
+  bottom: 20rpx;
+}

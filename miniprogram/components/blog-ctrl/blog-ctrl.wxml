@@ -1,0 +1,29 @@
+<view class="ctrl">
+  <view class="ctrl-item ctrl-left">
+    <view class="zan-item" bind:tap="onZan">
+      <i class="iconfont icon-zan"></i>
+      <text>喜欢</text>
+    </view>
+    <view class="comment-item" bind:tap="onComment">
+      <i class="iconfont icon-comment "></i>
+      <text>评论</text>
+    </view>
+  </view>
+  <view class="ctrl-item">
+    <button open-type="share" data-blogid="{{blogId}}" data-blog="{{blog}}" class="share-btn" hover-class="share-hover">
+      <i class="iconfont icon-share"></i>
+      <text>分享</text>
+    </button>
+  </view>
+</view>
+
+<!-- 授权组件 -->
+<x-login showModal="{{showAuthModal}}" bind:loginSuccess="onAuthSuccess" bind:loginFail="onAuthFail" />
+
+<!-- 评论弹出层 -->
+<x-bottom-modal showModal="{{showModal}}">
+  <view slot="modal-content">
+    <textarea name="content" class="comment-content" placeholder="说点什么吧" value="{{content}}" fixed="true"></textarea>
+    <button class="send" form-type="submit">发 送</button>
+  </view>
+</x-bottom-modal>
