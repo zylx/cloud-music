@@ -96,18 +96,19 @@ Page({
       }
     }).then((res) => {
       let responseData = res.result.data
-      if (responseData.length === 0) {
-        wx.hideLoading()
-        wx.showToast({
-          icon: 'none',
-          title: '没有更多数据'
-        })
-      }
       this.setData({
         playlist: this.data.playlist.concat(responseData)
       })
+      wx.hideLoading({
+        success: (res) => {
+          if (responseData.length === 0) {
+            wx.showToast({
+              title: '没有更多数据了'
+            })
+          }
+        }
+      })
       wx.stopPullDownRefresh() // 下拉数据更新完时关闭下拉刷新的加载小点
-      wx.hideLoading()
     })
   },
   setImageMargin() { // 设置歌单图片之间间隙
