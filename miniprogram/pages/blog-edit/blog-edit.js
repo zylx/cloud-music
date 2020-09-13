@@ -90,9 +90,9 @@ Page({
   setImageMargin() {
     const screenWidth = app.getScreenWidth()
     const rpx = app.getRpx() // 1rpx的像素（px）大小
-    // 30rpx 为图片区域总的左右边距，220rpx 为图片宽高，一排3张
+    // 25rpx 为图片区域总的左右边距，220rpx 为图片宽高，一排3张
     // marginSpace 为计算所得到图片间隙宽度，一排3张，中间两个间隙，所以还要除以2
-    const marginSpace = (screenWidth - rpx * 30 * 2 - rpx * 220 * 3) / rpx / 2
+    const marginSpace = (screenWidth - rpx * 25 * 2 - rpx * 220 * 3) / rpx / 2
     this.setData({
       marginSpace
     })

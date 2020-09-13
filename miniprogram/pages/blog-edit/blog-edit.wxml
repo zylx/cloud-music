@@ -4,7 +4,7 @@
 	<view class="image-list">
 		<!-- 图片显示区域 -->
 		<block wx:for="{{images}}" wx:key="*this">
-			<view class="image-wrap" style="margin-right:{{marginSpace}}rpx;margin-bottom:{{marginSpace}}rpx;">
+			<view class="image-wrap" style="margin-right:{{index % 3 !== 2 ? marginSpace : 0}}rpx;margin-bottom:{{marginSpace}}rpx;">
 				<image class="image" src="{{item}}" mode="aspectFill" data-imgsrc="{{item}}" bind:tap="onPreviewImage"></image>
 				<i class="iconfont icon-shanchu" bind:tap="onPhotoDel" data-index="{{index}}"></i>
 			</view>
@@ -18,5 +18,5 @@
 
 <view class="footer" style="bottom:{{footerBottom}}px">
 	<text class="word-count">{{wordCount}}</text>
-	<button class="send-btn" bind:tap="send">发布</button>
+	<button class="send-btn" bind:tap="send">发 布</button>
 </view>
