@@ -1,4 +1,5 @@
 // pages/blog/index.js
+let keyword = '' // 搜索关键字
 Page({
 
   /**
@@ -33,7 +34,13 @@ Page({
   },
 
   // 搜索
-  onSearch() {},
+  onSearch(event) {
+    keyword = event.detail.keyword
+    this.setData({
+      blogList: []
+    })
+    this._getBlogList(0)
+  },
 
   onLoginSuccess(event) {
     const detail = event.detail
@@ -65,9 +72,10 @@ Page({
     wx.cloud.callFunction({
       name: 'blog',
       data: {
-        $url: 'list',
-        start: start,
-        count: 10
+        keyword,
+        start,
+        count: 10,
+        $url: 'list'
       }
     }).then((res) => {
       const result = res.result

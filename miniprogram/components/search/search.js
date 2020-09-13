@@ -1,4 +1,5 @@
 // components/search/search.js
+let keyword = ''
 Component({
   /**
    * 组件的属性列表
@@ -27,8 +28,14 @@ Component({
    */
   methods: {
     // 输入
-    onInput() {},
+    onInput(event) {
+      keyword = event.detail.value.trim()
+    },
     // 搜索
-    onSearch() {}
+    onSearch() {
+      this.triggerEvent('search', {
+        keyword
+      })
+    }
   }
 })
