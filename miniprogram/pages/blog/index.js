@@ -58,19 +58,32 @@ Page({
   },
 
   // 获取博客列表
-  _getBlogList() {
+  _getBlogList(start = 0) {
+    wx.showLoading({
+      title: '拼命加载中'
+    })
     wx.cloud.callFunction({
       name: 'blog',
       data: {
         $url: 'list',
-        start: 0,
+        start: start,
         count: 10
       }
     }).then((res) => {
-      console.log(res)
+      const result = res.result
       this.setData({
-        blogList: this.data.blogList.concat(res.result)
+        blogList: this.data.blogList.concat(result)
       })
+      wx.hideLoading({
+        success: (res) => {
+          if (result.length === 0) {
+            wx.showToast({
+              title: '没有更多数据了'
+            })
+          }
+        }
+      })
+      wx.stopPullDownRefresh()
     })
   },
 
@@ -106,14 +119,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      blogList: []
+    })
+    this._getBlogList(0)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this._getBlogList(this.data.blogList.length)
   },
 
   /**
