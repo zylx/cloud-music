@@ -8,6 +8,7 @@ Component({
    */
   properties: {
     blogId: String,
+    blog: Object,
     openid: String,
     isLike: Boolean, // 当前用户是否已经点过赞
     likeCount: Number // 点赞用户数量
