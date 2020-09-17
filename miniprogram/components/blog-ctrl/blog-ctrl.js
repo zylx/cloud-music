@@ -7,7 +7,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    blogId: String
+    blogId: String,
+    openid: String,
+    isLike: Boolean, // 当前用户是否已经点过赞
+    likeCount: Number // 点赞用户数量
   },
 
   /**
@@ -21,7 +24,8 @@ Component({
 
   externalClasses: [
     'iconfont',
-    'icon-zan',
+    'icon-zan0',
+    'icon-zan1',
     'icon-comment',
     'icon-share'
   ],
@@ -40,6 +44,7 @@ Component({
     onComment() {
       ctrlType = 1
       this._checkAuth()
+      this.subscribeMsg()
     },
 
     // 判断授权
@@ -69,15 +74,10 @@ Component({
       })
     },
 
-    onInput(event) {
-      this.setData({
-        content: event.detail.value
-      })
-    },
-
     // 评论
-    onSend() {
-      let content = this.data.content
+    onSend(event) {
+      console.log(event)
+      let content = event.detail.value.content
       if (content.trim().length === 0) {
         wx.showModal({
           title: '提示',
@@ -107,6 +107,8 @@ Component({
               showModal: false,
               content: ''
             })
+            // 父元素刷新评论页面
+            this.triggerEvent('refreshCommentList')
           }
         })
       })
@@ -115,6 +117,20 @@ Component({
     // 喜欢、点赞
     sendLike() {
       console.log('喜欢')
+      wx.cloud.callFunction({
+        name: 'blog',
+        data: {
+          $url: 'like',
+          blogId: this.properties.blogId,
+        }
+      }).then((res) => {
+        const result = res.result
+        console.log(result)
+        this.setData({
+          isLike: result.isLike,
+          likeCount: result.likeCount
+        })
+      })
     },
 
     // 授权成功
@@ -140,6 +156,36 @@ Component({
         title: '提示',
         content: ctrlType === 1 ? '请先授权后再评论哦！' : '请先授权后再点赞哦！',
         showCancel: false
+      })
+    },
+
+    // 消息订阅
+    subscribeMsg() {
+      let templateId = 'E-4hKx5IIUxB2pDyijAQjYjD2p_pjRSeKxZy1S2dU18'
+      wx.requestSubscribeMessage({
+        tmplIds: [templateId],
+        success: (res) => {
+          // 如果用户点击允许
+          if (res[templateId] == 'accept') {
+            wx.cloud.callFunction({
+              name: 'sendMessage',
+              data: {
+                templateId,
+                content: '我是测试内容',
+                blogId: this.properties.blogId,
+              }
+            }).then(res => {
+              this.setData({
+                content: ''
+              })
+            })
+          } else {
+            console.log('点击了取消')
+          }
+        },
+        fail: (res) => {
+          console.log(res)
+        }
       })
     }
 

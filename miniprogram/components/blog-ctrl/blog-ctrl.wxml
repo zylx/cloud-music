@@ -1,8 +1,8 @@
 <view class="ctrl">
   <view class="ctrl-item ctrl-left">
     <view class="zan-item" bind:tap="onZan">
-      <i class="iconfont icon-zan"></i>
-      <text>喜欢</text>
+      <i class="iconfont {{isLike ? 'icon-zan1' : 'icon-zan0'}}"></i>
+      <text>喜欢({{likeCount}})</text>
     </view>
     <view class="comment-item" bind:tap="onComment">
       <i class="iconfont icon-comment "></i>
@@ -22,8 +22,8 @@
 
 <!-- 评论弹出层 -->
 <x-bottom-modal showModal="{{showModal}}">
-  <view slot="modal-content">
-    <textarea name="content" class="comment-content" placeholder="说点什么吧" bindinput="onInput" fixed="true"></textarea>
-    <button class="send" bind:tap="onSend">发 送</button>
-  </view>
+  <form slot="modal-content" report-submit="true" bind:submit="onSend">
+    <textarea name="content" class="comment-content" placeholder="说点什么吧" value="{{content}}" fixed="true"></textarea>
+    <button class="send" form-type="submit">发 送</button>
+  </form>
 </x-bottom-modal>
