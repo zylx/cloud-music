@@ -1,2 +1,33 @@
-<!--miniprogram/pages/blog-detail/blog-detail.wxml-->
-<text>miniprogram/pages/blog-detail/blog-detail.wxml</text>
+<scroll-view scroll-y="true" class="container">
+  <view class="blog-card">
+    <x-blog-card blog="{{blog}}" />
+  </view>
+
+  <!-- 评论点赞tab -->
+  <view class="tab">
+    <view class="tab-item">评论列表</view>
+  </view>
+
+  <!-- 评论内容列表 -->
+  <view class="comment-list">
+    <!-- 评论 -->
+    <block wx:for="{{commentList}}" wx:key="_id">
+      <view class="comment">
+        <view class="comment-title">
+          <image class="comment-portrait" src="{{item.avatarUrl}}"></image>
+          <text class="comment-nickname">{{item.nickName}}</text>
+        </view>
+        <view class="comment-content">
+          {{item.content}}
+        </view>
+        <view class="comment-time">{{item.createTime}}</view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+
+<view class="blog-ctrl">
+  <x-blog-ctrl blogId="{{blog._id}}" isLike="{{blog.like.indexOf(blog._openid) > -1 ? true : false}}"
+    likeCount="{{item.like.length}}" iconfont="iconfont" icon-zan0="icon-ban" icon-zan1="icon-zanxinxingguanzhu"
+    icon-comment="icon-review" icon-share="icon-fenxiang1" bind:refreshCommentList="_getBlogDetail" />
+</view>
