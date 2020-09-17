@@ -78,6 +78,7 @@ Page({
         $url: 'list'
       }
     }).then((res) => {
+      console.log(res)
       const result = res.result
       this.setData({
         blogList: this.data.blogList.concat(result)

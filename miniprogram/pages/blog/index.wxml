@@ -14,7 +14,7 @@
 		<block wx:for="{{blogList}}" wx:key="_id">
 			<view class="blog-panel">
 				<x-blog-card blog="{{item}}" data-blogid="{{item._id}}" bind:tap="goDetail" />
-				<x-blog-ctrl blogId="{{item._id}}" iconfont="iconfont" icon-zan="icon-ban" icon-comment="icon-review" icon-share="icon-fenxiang1"/>
+				<x-blog-ctrl blogId="{{item._id}}" isLike="{{item.like.indexOf(item._openid) > -1 ? true : false}}" likeCount="{{item.like.length}}" iconfont="iconfont" icon-zan0="icon-ban" icon-zan1="icon-zanxinxingguanzhu" icon-comment="icon-review" icon-share="icon-fenxiang1"/>
 			</view>
 		</block>
 	</view>
