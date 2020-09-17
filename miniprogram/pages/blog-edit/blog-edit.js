@@ -148,6 +148,7 @@ Page({
         data: {
           ...userInfo,
           content,
+          like: [],
           images: fieldIds,
           createtime: db.serverDate() // 服务端时间
         }
