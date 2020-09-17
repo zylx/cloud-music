@@ -3,11 +3,13 @@
   top: 0;
   left: 0;
   right: 0;
-  /* bottom: 100rpx; */
+  bottom: 100rpx;
   /* 取决于footer的高度 */
 }
 
 .blog-card {
+  /* position: fixed;
+  width: 100%; */
   margin-bottom: 20rpx;
 }
 
@@ -26,7 +28,6 @@
 /* 评论列表 */
 
 .comment-list {
-  margin-bottom: 100rpx;
   background-color: #fff;
 }
 

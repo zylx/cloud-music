@@ -61,7 +61,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    // 获取别卡片高度，用于设置卡片固定定位时的高度，而评论列表可滚动
+    // let query = wx.createSelectorQuery();
+    // query.select('.blog-card').boundingClientRect(rect => {
+    //   let clientHeight = rect.height;
+    //   let clientWidth = rect.width;
+    //   let ratio = 750 / clientWidth;
+    //   let height = clientHeight * ratio;
+    //   console.log(height);
+    // }).exec();
   },
 
   /**
@@ -103,6 +111,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    const blog = this.data.blog
+    return {
+      title: blog.content,
+      path: `/pages/blog-detail/blog-detail?blogId=${blog._id}`
+    }
   }
 })
