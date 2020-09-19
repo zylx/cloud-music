@@ -1,1 +1,3 @@
-/* pages/blog-history/blog-history.wxss */
+.blog-panel {
+  margin-bottom: 20rpx;
+}

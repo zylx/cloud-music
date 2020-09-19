@@ -37,20 +37,13 @@ Page({
       }
     }).then((res) => {
       const result = res.result
-      const likeCount = result.like && result.like.length || 0
-      let commentList = result.commentList || []
-      delete result.like
-      delete result.commentList
-      if (commentList.length > 0) {
-        for (let i = 0, len = commentList.length; i < len; i++) {
-          commentList[i].createtime = formatTime(new Date(commentList[i].createtime))
-        }
+      let commentList = result.commentList
+      for (let i = 0, len = commentList.length; i < len; i++) {
+        commentList[i].createtime = formatTime(new Date(commentList[i].createtime))
       }
       this.setData({
-        likeCount,
         commentList,
-        blog: result,
-        commentCount: commentList.length,
+        blog: result
       })
       wx.hideLoading()
       wx.stopPullDownRefresh()

@@ -78,7 +78,6 @@ Page({
         $url: 'list'
       }
     }).then((res) => {
-      console.log(res)
       const result = res.result
       this.setData({
         blogList: this.data.blogList.concat(result)
@@ -152,7 +151,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (event) {
-    console.log(event)
     const blogObj = event.target.dataset.blog
     return {
       title: blogObj.content,

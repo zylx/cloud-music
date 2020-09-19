@@ -28,6 +28,7 @@
 
 <view class="blog-ctrl">
   <x-blog-ctrl blogId="{{blog._id}}" isLike="{{blog.like.indexOf(blog._openid) > -1 ? true : false}}"
-    likeCount="{{item.like.length}}" iconfont="iconfont" icon-zan0="icon-ban" icon-zan1="icon-zanxinxingguanzhu"
-    icon-comment="icon-review" icon-share="icon-fenxiang1" bind:refreshCommentList="_getBlogDetail" />
+    likeCount="{{blog.like.length}}" commentCount="{{blog.commentList.length}}" iconfont="iconfont" icon-zan0="icon-ban"
+    icon-zan1="icon-zanxinxingguanzhu" icon-comment="icon-review" icon-share="icon-fenxiang1"
+    bind:refreshCommentList="_getBlogDetail" />
 </view>

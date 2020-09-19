@@ -19,7 +19,7 @@ exports.main = async (event, context) => {
   } = cloud.getWXContext()
 
   // 获取博客列表
-  app.use('list', async (ctx, next) => {
+  app.router('list', async (ctx, next) => {
     const keyword = event.keyword
     let w = {}
     if (keyword.trim() != '') {
@@ -30,37 +30,42 @@ exports.main = async (event, context) => {
         })
       }
     }
-    ctx.body = await dbCollection
-      .where(w)
-      .skip(event.start)
-      .limit(event.count)
-      .orderBy('createtime', 'desc')
-      .get()
-      .then((res) => {
-        return res.data
-      })
     // ctx.body = await dbCollection
-    //   .aggregate()
-    //   .lookup({
-    //     from: 'blog-comment',
-    //     localField: '_id',
-    //     foreignField: 'blogId',
-    //     as: 'blogList',
-    //   })
-    //   .match(w)
+    //   .where(w)
     //   .skip(event.start)
     //   .limit(event.count)
-    //   .sort({
-    //     createtime: -1
-    //   })
-    //   .end()
+    //   .orderBy('createtime', 'desc')
+    //   .get()
     //   .then((res) => {
     //     return res.data
     //   })
+    ctx.body = await dbCollection
+      .aggregate()
+      .lookup({
+        from: 'blog-comment',
+        localField: '_id',
+        foreignField: 'blogId',
+        as: 'commentList',
+      })
+      .match(w)
+      .skip(event.start)
+      .limit(event.count)
+      .sort({
+        createtime: -1
+      })
+      .end()
+      .then((res) => {
+        let blogList = res.list || []
+        for (let i = 0, len = blogList.length; i < len; i++) {
+          blogList[i]['commentCount'] = blogList[i]['commentList'].length
+          delete blogList[i]['commentList']
+        }
+        return blogList
+      })
   })
 
   // 博客详情
-  app.use('detail', async (ctx, next) => {
+  app.router('detail', async (ctx, next) => {
     const blogId = event.blogId
     ctx.body = await dbCollection
       .aggregate()
@@ -78,13 +83,12 @@ exports.main = async (event, context) => {
       })
       .end()
       .then((res) => {
-        // console.log(res)
         return res.list[0]
       })
   })
 
   // 喜欢、点赞
-  app.use('like', async (ctx, next) => {
+  app.router('like', async (ctx, next) => {
     const blogId = event.blogId
     let isLike = false
     let likeList = await dbCollection
@@ -122,6 +126,35 @@ exports.main = async (event, context) => {
       isLike,
       likeCount: likeList.length
     }
+  })
+
+  // 获取 我的 博客列表
+  app.router('listByOpenid', async (ctx, next) => {
+    ctx.body = await dbCollection
+      .aggregate()
+      .lookup({
+        from: 'blog-comment',
+        localField: '_id',
+        foreignField: 'blogId',
+        as: 'commentList',
+      })
+      .match({
+        _openid: OPENID
+      })
+      .skip(event.start)
+      .limit(event.count)
+      .sort({
+        createtime: -1
+      })
+      .end()
+      .then((res) => {
+        let blogList = res.list || []
+        for (let i = 0, len = blogList.length; i < len; i++) {
+          blogList[i]['commentCount'] = blogList[i]['commentList'].length
+          delete blogList[i]['commentList']
+        }
+        return blogList
+      })
   })
 
   return app.serve()

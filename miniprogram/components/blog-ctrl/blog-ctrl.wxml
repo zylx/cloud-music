@@ -6,7 +6,7 @@
     </view>
     <view class="comment-item" bind:tap="onComment">
       <i class="iconfont icon-comment "></i>
-      <text>评论</text>
+      <text>评论({{commentCount}})</text>
     </view>
   </view>
   <view class="ctrl-item">

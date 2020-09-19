@@ -11,7 +11,8 @@ Component({
     blog: Object,
     openid: String,
     isLike: Boolean, // 当前用户是否已经点过赞
-    likeCount: Number // 点赞用户数量
+    likeCount: Number, // 用户点赞数量
+    commentCount: Number // 用户评论数量
   },
 
   /**
@@ -77,7 +78,6 @@ Component({
 
     // 评论
     onSend(event) {
-      console.log(event)
       let content = event.detail.value.content
       if (content.trim().length === 0) {
         wx.showModal({
@@ -106,7 +106,8 @@ Component({
           success: () => {
             this.setData({
               showModal: false,
-              content: ''
+              content: '',
+              commentCount: this.data.commentCount + 1
             })
             // 父元素刷新评论页面
             this.triggerEvent('refreshCommentList')

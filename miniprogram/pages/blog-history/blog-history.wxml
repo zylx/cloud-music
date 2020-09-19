@@ -1,2 +1,11 @@
-<!--pages/blog-history/blog-history.wxml-->
-<text>pages/blog-history/blog-history.wxml</text>
+<view>
+  <block wx:for="{{blogList}}" wx:key="_id">
+    <view class="blog-panel">
+      <x-blog-card blog="{{item}}" data-blogid="{{item._id}}" bind:tap="goDetail" />
+      <x-blog-ctrl blog="{{item}}" blogId="{{item._id}}"
+        isLike="{{item.like.indexOf(item._openid) > -1 ? true : false}}" likeCount="{{item.like.length}}"
+        commentCount="{{item.commentCount}}" iconfont="iconfont" icon-zan0="icon-ban" icon-zan1="icon-zanxinxingguanzhu"
+        icon-comment="icon-review" icon-share="icon-fenxiang1" />
+    </view>
+  </block>
+</view>
