@@ -1,2 +1,6 @@
-<!--pages/play-history/play-history.wxml-->
-<text>pages/play-history/play-history.wxml</text>
+<view wx:if="{{playHistoryList.length > 0}}">
+  <x-musiclist musiclist="{{playHistoryList}}" />
+</view>
+<view wx:else class="empty-info">
+		暂时没有播放记录哦~
+</view>

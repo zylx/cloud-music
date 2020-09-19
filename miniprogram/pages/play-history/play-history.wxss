@@ -1,1 +1,4 @@
-/* pages/play-history/play-history.wxss */
+.empty-info {
+  padding: 20rpx 30rpx;
+  color: #888;
+}

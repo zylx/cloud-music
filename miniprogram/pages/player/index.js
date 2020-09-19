@@ -70,6 +70,9 @@ Page({
         backgroundAudioManager.coverImgUrl = music.al.picUrl
         backgroundAudioManager.singer = music.ar[0].name
         backgroundAudioManager.epname = music.al.name
+
+        // 保存播放记录到缓存
+        this.setPlayHistory()
       }
     })
     this.setData({
@@ -94,6 +97,27 @@ Page({
         lyric
       })
     })
+  },
+
+  // 保存播放历史
+  setPlayHistory() {
+    const playingMusic = musiclist[nowPlayingIndex]
+    const openid = app.globalData.openid
+    let playHistorylist = wx.getStorageSync(openid)
+    let bHave = false
+    for (let i = 0, len = playHistorylist.length; i < len; i++) {
+      if (playHistorylist[i].id === playingMusic.id) {
+        bHave = true
+        break;
+      }
+    }
+    if (!bHave) {
+      playHistorylist.unshift(playingMusic)
+      wx.setStorage({
+        key: openid,
+        data: playHistorylist
+      })
+    }
   },
 
   // 播放/暂停
