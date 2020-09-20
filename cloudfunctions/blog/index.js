@@ -109,19 +109,21 @@ exports.main = async (event, context) => {
       likeList = likeList.concat(OPENID)
     } else {
       isLike = false
-      likeList.splice(index - 1, 1)
+      likeList.splice(index, 1)
     }
 
-    await dbCollection.where({
-      _id: blogId
-    }).update({
-      data: {
-        like: likeList
-      },
-      success: (res) => {
-        console.log(res.data)
-      }
-    })
+    await dbCollection
+      .where({
+        _id: blogId
+      })
+      .update({
+        data: {
+          like: likeList
+        }
+      })
+      .then((res) => {
+        console.log(res)
+      })
     ctx.body = {
       isLike,
       likeCount: likeList.length

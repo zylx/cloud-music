@@ -1,4 +1,5 @@
 // pages/blog/index.js
+const app = getApp()
 let keyword = '' // 搜索关键字
 Page({
 
@@ -78,7 +79,11 @@ Page({
         $url: 'list'
       }
     }).then((res) => {
+      const curOpenid = app.globalData.openid
       const result = res.result
+      for (let i = 0, len = result.length; i < len; i++) {
+        result[i].isLike = result[i].like.indexOf(curOpenid) !== -1 ? true : false
+      }
       this.setData({
         blogList: this.data.blogList.concat(result)
       })

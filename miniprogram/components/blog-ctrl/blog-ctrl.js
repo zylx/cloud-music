@@ -9,7 +9,6 @@ Component({
   properties: {
     blogId: String,
     blog: Object,
-    openid: String,
     isLike: Boolean, // 当前用户是否已经点过赞
     likeCount: Number, // 用户点赞数量
     commentCount: Number // 用户评论数量
@@ -46,7 +45,7 @@ Component({
     onComment() {
       ctrlType = 1
       this._checkAuth()
-      this.subscribeMsg()
+      // this.subscribeMsg()
     },
 
     // 判断授权
@@ -118,7 +117,6 @@ Component({
 
     // 喜欢、点赞
     sendLike() {
-      console.log('喜欢')
       wx.cloud.callFunction({
         name: 'blog',
         data: {
@@ -127,7 +125,6 @@ Component({
         }
       }).then((res) => {
         const result = res.result
-        console.log(result)
         this.setData({
           isLike: result.isLike,
           likeCount: result.likeCount

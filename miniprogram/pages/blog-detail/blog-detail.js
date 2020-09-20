@@ -1,4 +1,5 @@
 // miniprogram/pages/blog-detail/blog-detail.js
+const app = getApp()
 import formatTime from '../../utils/formatTime.js'
 Page({
 
@@ -37,6 +38,7 @@ Page({
       }
     }).then((res) => {
       const result = res.result
+      result.isLike = result.like.indexOf(app.globalData.openid) !== -1 ? true : false
       let commentList = result.commentList
       for (let i = 0, len = commentList.length; i < len; i++) {
         commentList[i].createtime = formatTime(new Date(commentList[i].createtime))
