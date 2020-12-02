@@ -6,8 +6,12 @@ const TcbRouter = require('tcb-router')
 const rp = require('request-promise')
 
 const BASE_URL = 'http://musicapi.leanapp.cn'
+// const BASE_URL = 'http://music.163.com/api/'
 
-cloud.init()
+cloud.init({
+  // API 调用都保持和云函数当前所在环境一致
+  env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 // 云函数入口函数
 exports.main = async (event, context) => {

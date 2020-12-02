@@ -5,7 +5,10 @@ const rp = require('request-promise')
 
 const URL = 'http://musicapi.leanapp.cn/personalized'
 
-cloud.init()
+cloud.init({
+  // API 调用都保持和云函数当前所在环境一致
+  env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 const db = cloud.database()
 const dbCollection = db.collection('playlist')
@@ -41,7 +44,7 @@ exports.main = async (event, context) => {
   const playlist = await rp(URL).then((res) => {
     return JSON.parse(res).result
   })
-  // console.log(playlist)
+  console.log(playlist)
 
   // 歌单去重处理
   const newPlaylist = []

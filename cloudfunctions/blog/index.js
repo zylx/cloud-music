@@ -3,7 +3,10 @@ const cloud = require('wx-server-sdk')
 
 const TcbRouter = require('tcb-router')
 
-cloud.init()
+cloud.init({
+  // API 调用都保持和云函数当前所在环境一致
+  env: cloud.DYNAMIC_CURRENT_ENV
+})
 
 const db = cloud.database()
 const dbCollection = db.collection('blog')
